@@ -23,51 +23,7 @@
     <div class="tab-pane" id="home_options">
         {{ form_row(form.alternative_names) }}
 
-        <div {{ stimulus_controller('elements/barcode_input_scanner') }}>
-            {{ form_row(form.user_barcode, {'attr': {'data-elements--barcode-input-scanner-target': 'input'}}) }}
-            <div class="row mb-3">
-                <div class="{{ offset_label }} {{ col_input }}">
-                    <button type="button" class="btn btn-outline-secondary"
-                            {{ stimulus_action('elements/barcode_input_scanner', 'open') }}
-                            {% if form.user_barcode.vars.disabled %}disabled{% endif %}>
-                        <i class="fas fa-camera-retro fa-fw"></i>
-                        {% trans %}storelocation.user_barcode.scan{% endtrans %}
-                    </button>
-                </div>
-            </div>
-
-            <div class="modal fade" tabindex="-1" aria-labelledby="storelocation-user-barcode-scanner-title"
-                 aria-hidden="true" {{ stimulus_target('elements/barcode_input_scanner', 'modal') }}>
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h2 class="modal-title fs-5" id="storelocation-user-barcode-scanner-title">
-                                {% trans %}storelocation.user_barcode.scan_title{% endtrans %}
-                            </h2>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="{% trans %}modal.close{% endtrans %}"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-muted">{% trans %}storelocation.user_barcode.scan_help{% endtrans %}</p>
-                            <div class="alert alert-warning d-none"
-                                 {{ stimulus_target('elements/barcode_input_scanner', 'warning') }}>
-                                <strong>{% trans %}label_scanner.no_cam_found.title{% endtrans %}</strong>:
-                                {% trans %}label_scanner.no_cam_found.text{% endtrans %}
-                            </div>
-                            <div class="img-thumbnail mx-auto" style="max-width: 600px;">
-                                <div id="storelocation-user-barcode-reader"
-                                     {{ stimulus_target('elements/barcode_input_scanner', 'reader') }}></div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                {% trans %}modal.close{% endtrans %}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{ form_row(form.user_barcode) }}
         {{ form_row(form.storage_type) }}
         {{ form_row(form.is_full) }}
         {{ form_row(form.limit_to_existing_parts) }}

@@ -9762,8 +9762,8 @@ Por favor ten en cuenta que no puedes personificar a un usuario deshabilitado. S
     </unit>
     <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Código de barras personalizado</target></segment></unit>
     <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>Un código de barras opcional y único que abre esta ubicación de almacenamiento al escanearlo.</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Escanear código de barras</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Escanear el código de barras de la ubicación</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Apunta la cámara al código de barras. Su contenido se copiará automáticamente en el campo.</target></segment></unit>
+    <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>Escanear código de barras</target></segment></unit>
+    <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Escanear código de barras</target></segment></unit>
+    <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Apunta la cámara al código de barras. Su contenido se copiará automáticamente en el campo.</target></segment></unit>
   </file>
 </xliff>

@@ -591,8 +591,8 @@
     </unit>
     <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Door gebruiker gedefinieerde barcode</target></segment></unit>
     <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>Een optionele, unieke barcode die deze opslaglocatie opent wanneer deze wordt gescand.</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Barcode scannen</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Barcode van opslaglocatie scannen</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Richt de camera op de barcode. De inhoud wordt automatisch in het veld ingevuld.</target></segment></unit>
+    <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>Barcode scannen</target></segment></unit>
+    <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Barcode scannen</target></segment></unit>
+    <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Richt de camera op de barcode. De inhoud wordt automatisch in het veld ingevuld.</target></segment></unit>
   </file>
 </xliff>

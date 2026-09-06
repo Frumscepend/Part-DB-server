@@ -41,12 +41,12 @@ final class StorelocationController extends AbstractAdminController
 
         self::assertSelectorExists('[data-controller~="elements--barcode-input-scanner"]');
         self::assertSelectorExists(
-            'input[data-elements--barcode-input-scanner-target="input"]'
+            '.input-group > input[data-elements--barcode-input-scanner-target="input"]'
         );
         self::assertSelectorExists(
-            'button[data-action~="elements--barcode-input-scanner#open"]'
+            '.input-group > input + button[data-action~="elements--barcode-input-scanner#open"]'
         );
-        self::assertSelectorExists('#storelocation-user-barcode-reader');
+        self::assertSelectorExists('#storelocation_admin_form_user_barcode_scanner_reader');
     }
 
     public function testUserBarcodeCanBeAssignedAndCleared(): void

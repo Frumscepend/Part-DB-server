@@ -1,0 +1,49 @@
+{% block barcode_scanner_widget -%}
+    <div {{ stimulus_controller('elements/barcode_input_scanner') }}>
+        <div class="input-group">
+            {%- set attr = attr|merge({'data-elements--barcode-input-scanner-target': 'input'}) -%}
+            {{- block('form_widget_simple') -}}
+            <button type="button" class="btn btn-outline-secondary"
+                    title="{% trans %}barcode_input_scanner.open{% endtrans %}"
+                    aria-label="{% trans %}barcode_input_scanner.open{% endtrans %}"
+                    aria-controls="{{ id }}_scanner_modal"
+                    {{ stimulus_action('elements/barcode_input_scanner', 'open') }}
+                    {% if disabled %}disabled{% endif %}>
+                <i class="fas fa-camera-retro fa-fw" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="modal fade" id="{{ id }}_scanner_modal" tabindex="-1"
+             aria-labelledby="{{ id }}_scanner_title" aria-hidden="true"
+                {{ stimulus_target('elements/barcode_input_scanner', 'modal') }}>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title fs-5" id="{{ id }}_scanner_title">
+                            {% trans %}barcode_input_scanner.title{% endtrans %}
+                        </h2>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="{% trans %}modal.close{% endtrans %}"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">{% trans %}barcode_input_scanner.help{% endtrans %}</p>
+                        <div class="alert alert-warning d-none"
+                                {{ stimulus_target('elements/barcode_input_scanner', 'warning') }}>
+                            <strong>{% trans %}label_scanner.no_cam_found.title{% endtrans %}</strong>:
+                            {% trans %}label_scanner.no_cam_found.text{% endtrans %}
+                        </div>
+                        <div class="img-thumbnail mx-auto" style="max-width: 600px;">
+                            <div id="{{ id }}_scanner_reader"
+                                    {{ stimulus_target('elements/barcode_input_scanner', 'reader') }}></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            {% trans %}modal.close{% endtrans %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock barcode_scanner_widget %}

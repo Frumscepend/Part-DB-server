@@ -4857,21 +4857,21 @@ Element 1 -&gt; Element 1.2</target>
         <target>An optional, unique barcode that opens this storage location when scanned.</target>
       </segment>
     </unit>
-    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan">
+    <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open">
       <segment state="translated">
-        <source>storelocation.user_barcode.scan</source>
+        <source>barcode_input_scanner.open</source>
         <target>Scan barcode</target>
       </segment>
     </unit>
-    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title">
+    <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title">
       <segment state="translated">
-        <source>storelocation.user_barcode.scan_title</source>
-        <target>Scan storage location barcode</target>
+        <source>barcode_input_scanner.title</source>
+        <target>Scan barcode</target>
       </segment>
     </unit>
-    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help">
+    <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help">
       <segment state="translated">
-        <source>storelocation.user_barcode.scan_help</source>
+        <source>barcode_input_scanner.help</source>
         <target>Point the camera at the barcode. Its content will be copied into the field automatically.</target>
       </segment>
     </unit>

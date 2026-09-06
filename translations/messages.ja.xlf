@@ -6276,8 +6276,8 @@ Exampletown</target>
     </unit>
     <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>ユーザー定義バーコード</target></segment></unit>
     <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>スキャンするとこの保管場所を開く、任意の一意なバーコードです。</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>バーコードをスキャン</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>保管場所のバーコードをスキャン</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>カメラをバーコードに向けてください。内容が自動的にフィールドへ入力されます。</target></segment></unit>
+    <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>バーコードをスキャン</target></segment></unit>
+    <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>バーコードをスキャン</target></segment></unit>
+    <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>カメラをバーコードに向けてください。内容が自動的にフィールドへ入力されます。</target></segment></unit>
   </file>
 </xliff>

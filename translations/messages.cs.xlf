@@ -10921,8 +10921,8 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
         </unit>
     <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Uživatelsky definovaný čárový kód</target></segment></unit>
     <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>Volitelný jedinečný čárový kód, který po naskenování otevře toto skladové místo.</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Naskenovat čárový kód</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Skenování čárového kódu skladového místa</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Namiřte fotoaparát na čárový kód. Jeho obsah se automaticky zkopíruje do pole.</target></segment></unit>
+    <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>Naskenovat čárový kód</target></segment></unit>
+    <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Skenování čárového kódu</target></segment></unit>
+    <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Namiřte fotoaparát na čárový kód. Jeho obsah se automaticky zkopíruje do pole.</target></segment></unit>
   </file>
 </xliff>

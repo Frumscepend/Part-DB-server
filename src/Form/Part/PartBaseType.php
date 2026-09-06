@@ -36,6 +36,7 @@ use App\Form\AttachmentFormType;
 use App\Form\InfoProviderSystem\InfoProviderReferenceType;
 use App\Form\ParameterType;
 use App\Form\Part\EDA\EDAPartInfoType;
+use App\Form\Type\BarcodeScannerType;
 use App\Form\Type\MasterPictureAttachmentType;
 use App\Form\Type\RichTextEditorType;
 use App\Form\Type\SIUnitType;
@@ -220,7 +221,7 @@ class PartBaseType extends AbstractType
                 'disable_not_selectable' => true,
                 'label' => 'part.edit.partCustomState',
             ])
-            ->add('ipn', TextType::class, $ipnOptions)
+            ->add('ipn', BarcodeScannerType::class, $ipnOptions)
             ->add('gtin', TextType::class, [
                 'required' => false,
                 'empty_data' => null,

@@ -24,10 +24,10 @@ namespace App\Form\AdminPages;
 
 use App\Entity\Base\AbstractNamedDBElement;
 use App\Entity\Parts\MeasurementUnit;
+use App\Form\Type\BarcodeScannerType;
 use App\Form\Type\StructuralEntityType;
 use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class StorelocationAdminForm extends BaseEntityAdminForm
@@ -66,7 +66,7 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 
-        $builder->add('user_barcode', TextType::class, [
+        $builder->add('user_barcode', BarcodeScannerType::class, [
             'required' => false,
             'label' => 'storelocation.user_barcode.label',
             'help' => 'storelocation.user_barcode.help',

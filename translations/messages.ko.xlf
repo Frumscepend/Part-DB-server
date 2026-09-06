@@ -13747,8 +13747,8 @@ IP 주소당 분당 10회 요청</target>
     </unit>
     <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>사용자 정의 바코드</target></segment></unit>
     <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>스캔하면 이 보관 위치를 여는 선택적 고유 바코드입니다.</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>바코드 스캔</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>보관 위치 바코드 스캔</target></segment></unit>
-    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>카메라를 바코드에 맞추면 내용이 필드에 자동으로 입력됩니다.</target></segment></unit>
+    <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>바코드 스캔</target></segment></unit>
+    <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>바코드 스캔</target></segment></unit>
+    <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>카메라를 바코드에 맞추면 내용이 필드에 자동으로 입력됩니다.</target></segment></unit>
   </file>
 </xliff>
