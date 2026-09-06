@@ -25,9 +25,8 @@ namespace App\Form\Part;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\Parts\MeasurementUnit;
 use App\Entity\Parts\PartLot;
-use App\Entity\Parts\StorageLocation;
 use App\Form\Type\SIUnitType;
-use App\Form\Type\StructuralEntityType;
+use App\Form\Type\StorageLocationScannerType;
 use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -54,8 +53,7 @@ class PartLotType extends AbstractType
             ],
         ]);
 
-        $builder->add('storage_location', StructuralEntityType::class, [
-            'class' => StorageLocation::class,
+        $builder->add('storage_location', StorageLocationScannerType::class, [
             'label' => 'part_lot.edit.location',
             'required' => false,
             'disable_not_selectable' => true,

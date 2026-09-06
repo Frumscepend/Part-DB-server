@@ -16,11 +16,17 @@ import {Html5Qrcode, Html5QrcodeScanner} from "@part-db/html5-qrcode";
 /* stimulusFetch: 'lazy' */
 
 export default class extends Controller {
-    static targets = ["input", "modal", "reader", "warning"];
+    static targets = ["error", "input", "modal", "reader", "warning"];
+    static values = {
+        resolveUrl: String,
+    };
 
     connect() {
         this._scanner = null;
         this._stopping = null;
+        this._resolving = false;
+        this._lastDecodedText = "";
+        this._lookupAbortController = null;
         this._modal = new Modal(this.modalTarget);
         this._onShown = () => this._startScanner();
         this._onHidden = () => this._stopScanner();
@@ -54,6 +60,8 @@ export default class extends Controller {
         }
 
         this.warningTarget.classList.add("d-none");
+        this.errorTarget.classList.add("d-none");
+        this._lastDecodedText = "";
         Html5Qrcode.getCameras().then((cameras) => {
             if (cameras.length === 0) {
                 this.warningTarget.classList.remove("d-none");
@@ -72,11 +80,23 @@ export default class extends Controller {
             },
         }, false);
 
-        this._scanner.render((decodedText) => this._handleScan(decodedText));
+        this._scanner.render((decodedText) => void this._handleScan(decodedText));
     }
 
-    _handleScan(decodedText) {
+    async _handleScan(decodedText) {
         if (!decodedText || String(decodedText).trim() === "") {
+            return;
+        }
+
+        if (this._resolving || decodedText === this._lastDecodedText) {
+            return;
+        }
+
+        this._lastDecodedText = decodedText;
+
+        if (this.hasResolveUrlValue) {
+            await this._resolveSelectValue(decodedText);
+
             return;
         }
 
@@ -86,9 +106,57 @@ export default class extends Controller {
         this._modal.hide();
     }
 
+    async _resolveSelectValue(decodedText) {
+        const abortController = new AbortController();
+        this._lookupAbortController = abortController;
+        this._resolving = true;
+        this.errorTarget.classList.add("d-none");
+
+        try {
+            const url = new URL(this.resolveUrlValue, window.location.origin);
+            url.searchParams.set("barcode", decodedText);
+
+            const response = await fetch(url, {
+                headers: {Accept: "application/json"},
+                credentials: "same-origin",
+                signal: abortController.signal,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Barcode lookup failed with status ${response.status}`);
+            }
+
+            const result = await response.json();
+            const detail = {value: String(result.id), selected: false};
+            const accepted = this.inputTarget.dispatchEvent(new CustomEvent("barcode-scanner:set-value", {
+                cancelable: true,
+                detail,
+            }));
+
+            if (!accepted || !detail.selected) {
+                throw new Error("The resolved storage location cannot be selected");
+            }
+
+            this._modal.hide();
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                this.errorTarget.classList.remove("d-none");
+            }
+        } finally {
+            if (this._lookupAbortController === abortController) {
+                this._lookupAbortController = null;
+                this._resolving = false;
+            }
+        }
+    }
+
     _stopScanner() {
         const scanner = this._scanner;
         this._scanner = null;
+        this._lookupAbortController?.abort();
+        this._lookupAbortController = null;
+        this._resolving = false;
+        this._lastDecodedText = "";
 
         if (!scanner) {
             return;

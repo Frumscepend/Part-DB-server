@@ -4779,6 +4779,12 @@
         <target>Наведите камеру на штрихкод. Его содержимое автоматически появится в поле.</target>
       </segment>
     </unit>
+    <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found">
+      <segment state="translated">
+        <source>barcode_input_scanner.not_found</source>
+        <target>Подходящее место хранения не найдено.</target>
+      </segment>
+    </unit>
     <unit id="ilC3c6u" name="supplier.edit.default_currency">
       <notes>
         <note priority="1">obsolete</note>

@@ -107,6 +107,22 @@ final class PartControllerTest extends WebTestCase
         $this->assertSelectorExists('#part_base_ipn_scanner_reader');
     }
 
+    public function testStorageLocationScannerIsRenderedForPartLots(): void
+    {
+        $client = static::createClient();
+        $this->loginAsUser($client, 'admin');
+
+        $client->request('GET', '/en/part/3/edit');
+
+        $this->assertResponseStatusCodeSame(Response::HTTP_OK);
+        $this->assertSelectorExists(
+            '[data-controller~="elements--barcode-input-scanner"]'
+            .'[data-elements--barcode-input-scanner-resolve-url-value] '
+            .'select[data-controller~="elements--structural-entity-select"]'
+            .'[data-elements--barcode-input-scanner-target="input"]'
+        );
+    }
+
     public function testEditPartWithBulkJob(): void
     {
         $client = static::createClient();

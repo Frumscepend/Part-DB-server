@@ -13691,5 +13691,6 @@ BuerklinAPI认证服务器：每分钟10次请求/IP地址</target>
     <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>扫描条码</target></segment></unit>
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>扫描条码</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>将相机对准条码，其内容将自动填入此字段。</target></segment></unit>
+    <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>未找到匹配的存储位置。</target></segment></unit>
   </file>
 </xliff>

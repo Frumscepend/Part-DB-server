@@ -41,8 +41,11 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\Parts\StorageLocation;
 use App\Exceptions\InfoProviderNotActiveException;
 use App\Form\LabelSystem\ScanDialogType;
+use App\Repository\Parts\StorelocationRepository;
 use App\Services\InfoProviderSystem\Providers\LCSCProvider;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultHandler;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
@@ -51,6 +54,7 @@ use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use InvalidArgumentException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -63,7 +67,6 @@ use App\Services\InfoProviderSystem\ProviderRegistry;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use App\Entity\Parts\Part;
-use \App\Entity\Parts\StorageLocation;
 use Symfony\UX\Turbo\TurboBundle;
 
 /**
@@ -166,6 +169,45 @@ class ScanController extends AbstractController
             'openUrl' => $openUrl ?? null,
             'createUrl' => $createUrl ?? null,
         ]);
+    }
+
+    #[Route(path: '/storage-location', name: 'scan_storage_location_lookup', methods: ['GET'])]
+    public function storageLocationLookup(Request $request, EntityManagerInterface $entityManager): JsonResponse
+    {
+        $this->denyAccessUnlessGranted('@tools.label_scanner');
+        $this->denyAccessUnlessGranted('@storelocations.read');
+
+        $barcode = $request->query->getString('barcode');
+        if ($barcode === '' || mb_strlen($barcode) > 255) {
+            return $this->json(['found' => false], Response::HTTP_BAD_REQUEST);
+        }
+
+        $repository = $entityManager->getRepository(StorageLocation::class);
+        if (!$repository instanceof StorelocationRepository) {
+            throw new \LogicException('Unexpected storage location repository type.');
+        }
+
+        // A storage-location barcode wins here even if another entity uses the same user-defined value.
+        $location = $repository->findOneByUserBarcode($barcode);
+
+        if (!$location instanceof StorageLocation) {
+            try {
+                $scan = $this->barcodeNormalizer->scanBarcodeContent($barcode);
+                if ($scan instanceof LocalBarcodeScanResult
+                    && $scan->target_type === LabelSupportedElement::STORELOCATION) {
+                    $entity = $this->resultHandler->resolveEntity($scan);
+                    $location = $entity instanceof StorageLocation ? $entity : null;
+                }
+            } catch (\Throwable) {
+                $location = null;
+            }
+        }
+
+        if (!$location instanceof StorageLocation) {
+            return $this->json(['found' => false], Response::HTTP_NOT_FOUND);
+        }
+
+        return $this->json(['found' => true, 'id' => $location->getID()]);
     }
 
     /**

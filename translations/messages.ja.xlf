@@ -6279,5 +6279,6 @@ Exampletown</target>
     <unit id="barcodeInputScannerOpen" name="barcode_input_scanner.open"><segment state="translated"><source>barcode_input_scanner.open</source><target>バーコードをスキャン</target></segment></unit>
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>バーコードをスキャン</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>カメラをバーコードに向けてください。内容が自動的にフィールドへ入力されます。</target></segment></unit>
+    <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>該当する保管場所が見つかりませんでした。</target></segment></unit>
   </file>
 </xliff>

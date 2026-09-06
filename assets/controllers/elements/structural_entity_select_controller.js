@@ -108,9 +108,25 @@ export default class extends Controller {
         }
 
         this._tomSelect = new TomSelect(this.element, settings);
+        this._onBarcodeScannerSetValue = (event) => this.setBarcodeScannerValue(event);
+        this.element.addEventListener("barcode-scanner:set-value", this._onBarcodeScannerSetValue);
 
         //Do not do a sync here as this breaks the initial rendering of the empty option
         //this._tomSelect.sync();
+    }
+
+    setBarcodeScannerValue(event) {
+        const value = String(event.detail?.value ?? "");
+        const option = this._tomSelect.options[value];
+
+        if (value === "" || !option || option.disabled) {
+            event.preventDefault();
+
+            return;
+        }
+
+        this._tomSelect.setValue(value);
+        event.detail.selected = true;
     }
 
     createItem(input, callback) {
@@ -256,6 +272,7 @@ export default class extends Controller {
 
     disconnect() {
         super.disconnect();
+        this.element.removeEventListener("barcode-scanner:set-value", this._onBarcodeScannerSetValue);
         //Destroy the TomSelect instance
         this._tomSelect.destroy();
     }

@@ -71,4 +71,36 @@ final class ScanControllerTest extends WebTestCase
         $this->client->request('GET', '/en/scan?input=scanner-storage-location-code');
         self::assertResponseIsSuccessful();
     }
+
+    public function testStorageLocationLookupResolvesUserAndInternalBarcodes(): void
+    {
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $location = $entityManager->find(StorageLocation::class, 4);
+        self::assertInstanceOf(StorageLocation::class, $location);
+        $location->setUserBarcode('storage-location-picker-code');
+        $entityManager->flush();
+
+        $this->client->request('GET', '/en/scan/storage-location?barcode=storage-location-picker-code');
+        self::assertResponseIsSuccessful();
+        self::assertSame(['found' => true, 'id' => 4], json_decode(
+            (string) $this->client->getResponse()->getContent(),
+            true,
+            flags: JSON_THROW_ON_ERROR
+        ));
+
+        $this->client->request('GET', '/en/scan/storage-location?barcode=S0004');
+        self::assertResponseIsSuccessful();
+        self::assertSame(4, json_decode(
+            (string) $this->client->getResponse()->getContent(),
+            true,
+            flags: JSON_THROW_ON_ERROR
+        )['id']);
+    }
+
+    public function testStorageLocationLookupRejectsUnknownBarcode(): void
+    {
+        $this->client->request('GET', '/en/scan/storage-location?barcode=missing-location-code');
+
+        self::assertResponseStatusCodeSame(404);
+    }
 }
