@@ -1,0 +1,52 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-09-06T05:15:56.077Z",
+  "phase": null,
+  "phase_name": "storage-location-barcode",
+  "phase_dir": null,
+  "plan": null,
+  "task": 6,
+  "total_tasks": 7,
+  "status": "paused",
+  "completed_tasks": [
+    {"id": 1, "name": "Create feature branch and inspect repository conventions", "status": "done", "commit": null},
+    {"id": 2, "name": "Implement StorageLocation user_barcode model and migration", "status": "done", "commit": null},
+    {"id": 3, "name": "Integrate UI form, API serialization and validation", "status": "done", "commit": null},
+    {"id": 4, "name": "Integrate scanner resolution through existing LocalBarcodeScanResult", "status": "done", "commit": null},
+    {"id": 5, "name": "Add and run model, schema, API, UI and scanner regression tests", "status": "done", "commit": null},
+    {"id": 6, "name": "Verify migrations on all CI database platforms", "status": "in_progress", "progress": "SQLite and PostgreSQL 14 passed. MySQL 8 full migration chain was interrupted at user-requested pause after progressing through legacy migrations."}
+  ],
+  "remaining_tasks": [
+    {"id": 6, "name": "Repeat MySQL 8 migration verification and inspect nullable unique index semantics", "status": "in_progress"},
+    {"id": 7, "name": "Perform final full-diff review, remove generated changes, commit implementation and report", "status": "not_started"}
+  ],
+  "blockers": [
+    {"description": "Repository ecs.php uses the removed legacy ECS configuration API and cannot run with locked ECS 13.2.19.", "type": "technical", "workaround": "Use a temporary ECS 13 fluent config for touched files only; do not apply its unrelated formatting suggestions. PHP syntax lint, Twig/XLIFF lint and PHPStan already pass."}
+  ],
+  "human_actions_pending": [],
+  "decisions": [
+    {"decision": "Name the field user_barcode and expose it as API user_barcode.", "rationale": "Matches the existing opaque user-defined barcode property on PartLot and avoids UUID-specific naming.", "phase": null},
+    {"decision": "Use nullable VARCHAR(255), preserve whitespace, and canonicalize only the empty string to NULL.", "rationale": "Allows a portable full-field unique index while following PartLot form behavior for opaque whitespace-sensitive content.", "phase": null},
+    {"decision": "Resolve StorageLocation after PartLot within the existing USER_DEFINED scanner stage.", "rationale": "Preserves internal and PartLot barcode priorities and reuses LocalBarcodeScanResult navigation.", "phase": null},
+    {"decision": "Defer late binding.", "rationale": "Unknown scans currently collapse to an exception/flash without a result object; location selection and state transfer would require a new non-small scanner UI flow.", "phase": null}
+  ],
+  "uncommitted_files": [
+    "src/Entity/Parts/StorageLocation.php",
+    "src/Form/AdminPages/StorelocationAdminForm.php",
+    "src/Repository/Parts/StorelocationRepository.php",
+    "src/Services/LabelSystem/BarcodeScanner/BarcodeScanHelper.php",
+    "src/Services/LabelSystem/BarcodeScanner/BarcodeSourceType.php",
+    "templates/admin/storelocation_admin.html.twig",
+    "migrations/Version20260906120000.php",
+    "tests/Entity/Parts/StorageLocationTest.php",
+    "tests/Repository/StorelocationRepositoryTest.php",
+    "tests/API/Endpoints/StorageLocationsEndpointTest.php",
+    "tests/Controller/AdminPages/StorelocationController.php",
+    "tests/Controller/ScanControllerTest.php",
+    "tests/Services/LabelSystem/BarcodeScanner/BarcodeScanHelperTest.php",
+    "translations/messages.en.xlf",
+    "translations/validators.en.xlf"
+  ],
+  "next_action": "Recreate isolated MySQL 8 container/network, run the full migration chain with explicit test DATABASE_URL, verify storelocations.user_barcode is nullable VARCHAR(255) with storelocations_unique_user_barcode, then remove containers and perform final diff review.",
+  "context_notes": "Working branch is feature/storage-location-barcode. Full SQLite PHPUnit suite passes: 2214 tests, 5843 assertions, 9 upstream deprecations. PHPStan passes. SQLite migration up/down/up passes. PostgreSQL 14 full migrations and direct uniqueness/null/reassignment checks pass. No implementation commit or push has been made. Official image build assets and OAuth keys are ignored local test artifacts. Always restore generated config/reference.php path changes before final diff."
+}
