@@ -12514,5 +12514,10 @@ Server di autenticazione API Buerklin:
         <target>Ultimo inventario</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Codice a barre personalizzato</target></segment></unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>Un codice a barre facoltativo e univoco che apre questa posizione di stoccaggio quando viene scansionato.</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Scansiona codice a barre</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Scansiona il codice a barre della posizione di stoccaggio</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Inquadra il codice a barre con la fotocamera. Il contenuto verrà copiato automaticamente nel campo.</target></segment></unit>
   </file>
 </xliff>

@@ -13745,5 +13745,10 @@ IP 주소당 분당 10회 요청</target>
         <target>경고: 여기서 값을 변경하면 정보 조회 메커니즘이 작동하지 않을 수 있습니다! 가능한 한 "정보 제공자로 업데이트" 기능을 사용하세요.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>사용자 정의 바코드</target></segment></unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>스캔하면 이 보관 위치를 여는 선택적 고유 바코드입니다.</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>바코드 스캔</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>보관 위치 바코드 스캔</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>카메라를 바코드에 맞추면 내용이 필드에 자동으로 입력됩니다.</target></segment></unit>
   </file>
 </xliff>

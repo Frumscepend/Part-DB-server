@@ -11473,5 +11473,10 @@
             <target>_MENU_</target>
           </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Egyéni vonalkód</target></segment></unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>Opcionális, egyedi vonalkód, amely beolvasáskor megnyitja ezt a tárolóhelyet.</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Vonalkód beolvasása</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Tárolóhely vonalkódjának beolvasása</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Irányítsa a kamerát a vonalkódra. A tartalma automatikusan bekerül a mezőbe.</target></segment></unit>
   </file>
 </xliff>

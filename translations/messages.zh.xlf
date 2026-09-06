@@ -13686,5 +13686,10 @@ BuerklinAPI认证服务器：每分钟10次请求/IP地址</target>
         <target>可以使用这个随机生成的值(请勿公开)：</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>用户自定义条码</target></segment></unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>可选且唯一的条码，扫描后会打开此存储位置。</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>扫描条码</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>扫描存储位置条码</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>将相机对准条码，其内容将自动填入此字段。</target></segment></unit>
   </file>
 </xliff>

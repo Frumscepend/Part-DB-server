@@ -12962,5 +12962,10 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
         <target>Felttilknytningsfejl: Kontroller, om du har valgt den rigtige tegn-afgrænser!</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Brugerdefineret stregkode</target></segment></unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>En valgfri, unik stregkode, der åbner denne lagerplacering, når den scannes.</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Scan stregkode</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Scan lagerplaceringens stregkode</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Ret kameraet mod stregkoden. Indholdet kopieres automatisk til feltet.</target></segment></unit>
   </file>
 </xliff>

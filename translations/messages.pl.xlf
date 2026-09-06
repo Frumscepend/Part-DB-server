@@ -9607,5 +9607,10 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
             <target>_MENU_</target>
           </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label"><segment state="translated"><source>storelocation.user_barcode.label</source><target>Niestandardowy kod kreskowy</target></segment></unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help"><segment state="translated"><source>storelocation.user_barcode.help</source><target>Opcjonalny, unikatowy kod kreskowy, który po zeskanowaniu otwiera tę lokalizację magazynową.</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan"><segment state="translated"><source>storelocation.user_barcode.scan</source><target>Skanuj kod kreskowy</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title"><segment state="translated"><source>storelocation.user_barcode.scan_title</source><target>Skanuj kod kreskowy lokalizacji magazynowej</target></segment></unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help"><segment state="translated"><source>storelocation.user_barcode.scan_help</source><target>Skieruj aparat na kod kreskowy. Jego zawartość zostanie automatycznie wpisana w polu.</target></segment></unit>
   </file>
 </xliff>
