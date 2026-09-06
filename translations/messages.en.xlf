@@ -4857,6 +4857,24 @@ Element 1 -&gt; Element 1.2</target>
         <target>An optional, unique barcode that opens this storage location when scanned.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeScan" name="storelocation.user_barcode.scan">
+      <segment state="translated">
+        <source>storelocation.user_barcode.scan</source>
+        <target>Scan barcode</target>
+      </segment>
+    </unit>
+    <unit id="storageLocationUserBarcodeScanTitle" name="storelocation.user_barcode.scan_title">
+      <segment state="translated">
+        <source>storelocation.user_barcode.scan_title</source>
+        <target>Scan storage location barcode</target>
+      </segment>
+    </unit>
+    <unit id="storageLocationUserBarcodeScanHelp" name="storelocation.user_barcode.scan_help">
+      <segment state="translated">
+        <source>storelocation.user_barcode.scan_help</source>
+        <target>Point the camera at the barcode. Its content will be copied into the field automatically.</target>
+      </segment>
+    </unit>
     <unit id="ilC3c6u" name="supplier.edit.default_currency">
       <notes>
         <note priority="1">obsolete</note>

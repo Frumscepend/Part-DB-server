@@ -34,6 +34,21 @@ final class StorelocationController extends AbstractAdminController
     protected static string $base_path = '/en/store_location';
     protected static string $entity_class = StorageLocation::class;
 
+    public function testUserBarcodeScannerControlsAreRendered(): void
+    {
+        $client = $this->createAdminClient();
+        $client->request('GET', self::$base_path.'/1/edit');
+
+        self::assertSelectorExists('[data-controller~="elements--barcode-input-scanner"]');
+        self::assertSelectorExists(
+            'input[data-elements--barcode-input-scanner-target="input"]'
+        );
+        self::assertSelectorExists(
+            'button[data-action~="elements--barcode-input-scanner#open"]'
+        );
+        self::assertSelectorExists('#storelocation-user-barcode-reader');
+    }
+
     public function testUserBarcodeCanBeAssignedAndCleared(): void
     {
         $client = $this->createAdminClient();
