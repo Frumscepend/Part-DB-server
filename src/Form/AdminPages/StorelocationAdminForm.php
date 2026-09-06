@@ -27,6 +27,7 @@ use App\Entity\Parts\MeasurementUnit;
 use App\Form\Type\StructuralEntityType;
 use App\Form\Type\UserSelectType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class StorelocationAdminForm extends BaseEntityAdminForm
@@ -62,6 +63,16 @@ class StorelocationAdminForm extends BaseEntityAdminForm
             'help' => 'storelocation.storage_type.help',
             'class' => MeasurementUnit::class,
             'disable_not_selectable' => true,
+            'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
+        ]);
+
+        $builder->add('user_barcode', TextType::class, [
+            'required' => false,
+            'label' => 'storelocation.user_barcode.label',
+            'help' => 'storelocation.user_barcode.help',
+            'empty_data' => null,
+            // Barcode content is opaque. Preserve leading and trailing whitespace.
+            'trim' => false,
             'disabled' => !$this->security->isGranted($is_new ? 'create' : 'edit', $entity),
         ]);
 

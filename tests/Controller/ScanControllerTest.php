@@ -22,6 +22,8 @@ declare(strict_types=1);
  */
 namespace App\Tests\Controller;
 
+use App\Entity\Parts\StorageLocation;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -50,5 +52,23 @@ final class ScanControllerTest extends WebTestCase
     {
         $this->client->request('GET', '/scan/part/1');
         $this->assertResponseRedirects('/en/part/1');
+    }
+
+    public function testUserDefinedStorageLocationBarcodeRedirectsUntilCleared(): void
+    {
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $location = $entityManager->find(StorageLocation::class, 4);
+        self::assertInstanceOf(StorageLocation::class, $location);
+        $location->setUserBarcode('scanner-storage-location-code');
+        $entityManager->flush();
+
+        $this->client->request('GET', '/en/scan?input=scanner-storage-location-code');
+        self::assertResponseRedirects('/en/store_location/4/parts');
+
+        $location->setUserBarcode(null);
+        $entityManager->flush();
+
+        $this->client->request('GET', '/en/scan?input=scanner-storage-location-code');
+        self::assertResponseIsSuccessful();
     }
 }

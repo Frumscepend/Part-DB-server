@@ -44,6 +44,7 @@ namespace App\Services\LabelSystem\BarcodeScanner;
 use App\Entity\LabelSystem\LabelSupportedElement;
 use App\Entity\Parts\Part;
 use App\Entity\Parts\PartLot;
+use App\Entity\Parts\StorageLocation;
 use Doctrine\ORM\EntityManagerInterface;
 use InvalidArgumentException;
 
@@ -178,15 +179,26 @@ final class BarcodeScanHelper
         //Find only the first result
         $results = $lot_repo->findBy(['user_barcode' => $input], limit: 1);
 
-        if (count($results) === 0) {
+        if (count($results) !== 0) {
+            $lot = $results[0];
+
+            return new LocalBarcodeScanResult(
+                target_type: LabelSupportedElement::PART_LOT,
+                target_id: $lot->getID(),
+                source_type: BarcodeSourceType::USER_DEFINED
+            );
+        }
+
+        $storageLocationRepository = $this->entityManager->getRepository(StorageLocation::class);
+        $storageLocation = $storageLocationRepository->findOneByUserBarcode($input);
+
+        if (!$storageLocation instanceof StorageLocation) {
             return null;
         }
-        //We found a part, so use it to create the result
-        $lot = $results[0];
 
         return new LocalBarcodeScanResult(
-            target_type: LabelSupportedElement::PART_LOT,
-            target_id: $lot->getID(),
+            target_type: LabelSupportedElement::STORELOCATION,
+            target_id: $storageLocation->getID(),
             source_type: BarcodeSourceType::USER_DEFINED
         );
     }

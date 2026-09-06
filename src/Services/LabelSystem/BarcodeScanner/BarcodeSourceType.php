@@ -34,7 +34,7 @@ enum BarcodeSourceType: string
     case IPN = 'ipn';
 
     /**
-     * This barcode is a user defined barcode defined on a part lot
+     * This barcode is a user-defined barcode assigned to a local entity.
      */
     case USER_DEFINED = 'user';
 

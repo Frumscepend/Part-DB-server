@@ -4845,6 +4845,18 @@ Element 1 -&gt; Element 1.2</target>
         <target>You can select a [measurement_unit] here, which a [part] must have to be able to be assigned to this [storage_location]</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeLabel" name="storelocation.user_barcode.label">
+      <segment state="translated">
+        <source>storelocation.user_barcode.label</source>
+        <target>User-defined barcode</target>
+      </segment>
+    </unit>
+    <unit id="storageLocationUserBarcodeHelp" name="storelocation.user_barcode.help">
+      <segment state="translated">
+        <source>storelocation.user_barcode.help</source>
+        <target>An optional, unique barcode that opens this storage location when scanned.</target>
+      </segment>
+    </unit>
     <unit id="ilC3c6u" name="supplier.edit.default_currency">
       <notes>
         <note priority="1">obsolete</note>

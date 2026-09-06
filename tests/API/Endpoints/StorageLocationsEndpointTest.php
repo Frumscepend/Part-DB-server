@@ -55,18 +55,56 @@ final class StorageLocationsEndpointTest extends CrudEndpointTestCase
 
     public function testCreateItem(): void
     {
-        $this->_testPostItem([
+        $response = $this->_testPostItem([
             'name' => 'Test API',
             'parent' => '/api/storage_locations/1',
+            'user_barcode' => 'api-created-location-code',
         ]);
+
+        self::assertSame('api-created-location-code', $response->toArray()['user_barcode']);
     }
 
     public function testUpdateItem(): void
     {
-        $this->_testPatchItem(5, [
+        $response = $this->_testPatchItem(5, [
             'name' => 'Updated',
             'parent' => '/api/storage_locations/2',
+            'user_barcode' => 'api-updated-location-code',
         ]);
+
+        self::assertSame('api-updated-location-code', $response->toArray()['user_barcode']);
+    }
+
+    public function testUserBarcodeCanBeClearedAndReassigned(): void
+    {
+        $this->_testPatchItem(1, ['user_barcode' => 'reassignable-location-code']);
+
+        $duplicateResponse = self::createAuthenticatedClient()->request('PATCH', $this->getItemPath(2), [
+            'json' => ['user_barcode' => 'reassignable-location-code'],
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+        self::assertResponseStatusCodeSame(422);
+        self::assertSame('user_barcode', $duplicateResponse->toArray(false)['violations'][0]['propertyPath']);
+
+        $clearedResponse = $this->_testPatchItem(1, ['user_barcode' => '']);
+        self::assertNull($clearedResponse->toArray()['user_barcode']);
+
+        $reassignedResponse = $this->_testPatchItem(2, ['user_barcode' => 'reassignable-location-code']);
+        self::assertSame('reassignable-location-code', $reassignedResponse->toArray()['user_barcode']);
+
+        $this->_testPatchItem(2, ['user_barcode' => 'replacement-location-code']);
+        $releasedResponse = $this->_testPatchItem(1, ['user_barcode' => 'reassignable-location-code']);
+        self::assertSame('reassignable-location-code', $releasedResponse->toArray()['user_barcode']);
+    }
+
+    public function testUserBarcodeLengthIsValidated(): void
+    {
+        self::createAuthenticatedClient()->request('PATCH', $this->getItemPath(1), [
+            'json' => ['user_barcode' => str_repeat('x', 256)],
+            'headers' => ['Content-Type' => 'application/merge-patch+json'],
+        ]);
+
+        self::assertResponseStatusCodeSame(422);
     }
 
     public function testDeleteItem(): void

@@ -28,8 +28,24 @@ use App\Repository\AbstractPartsContainingRepository;
 use Doctrine\ORM\QueryBuilder;
 use InvalidArgumentException;
 
+/**
+ * @extends AbstractPartsContainingRepository<StorageLocation>
+ */
 class StorelocationRepository extends AbstractPartsContainingRepository
 {
+    public function findOneByUserBarcode(string $barcode): ?StorageLocation
+    {
+        /** @var StorageLocation|null $result */
+        $result = $this->createQueryBuilder('location')
+            ->andWhere('location.user_barcode = :barcode')
+            ->setParameter('barcode', $barcode)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        return $result;
+    }
+
     public function getParts(object $element, string $nameOrderDirection = "ASC"): array
     {
         if (!$element instanceof StorageLocation) {

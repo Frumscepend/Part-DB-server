@@ -217,6 +217,12 @@
         <target>This vendor barcode value was already used in another lot. The barcode must be unique!</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique">
+      <segment state="translated">
+        <source>validator.storage_location.user_barcode_must_be_unique</source>
+        <target>This barcode is already assigned to another storage location. The barcode must be unique!</target>
+      </segment>
+    </unit>
     <unit id="ufQJh7E" name="validator.year_2038_bug_on_32bit">
       <segment state="translated">
         <source>validator.year_2038_bug_on_32bit</source>

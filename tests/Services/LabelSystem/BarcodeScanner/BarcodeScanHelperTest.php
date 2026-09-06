@@ -43,11 +43,13 @@ namespace App\Tests\Services\LabelSystem\BarcodeScanner;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use App\Entity\LabelSystem\LabelSupportedElement;
+use App\Entity\Parts\StorageLocation;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanHelper;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeScanResultInterface;
 use App\Services\LabelSystem\BarcodeScanner\BarcodeSourceType;
 use App\Services\LabelSystem\BarcodeScanner\EIGP114BarcodeScanResult;
 use App\Services\LabelSystem\BarcodeScanner\LocalBarcodeScanResult;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use App\Services\LabelSystem\BarcodeScanner\LCSCBarcodeScanResult;
 
@@ -192,5 +194,59 @@ final class BarcodeScanHelperTest extends WebTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         $this->service->scanBarcodeContent('not-an-lcsc', BarcodeSourceType::LCSC);
+    }
+
+    public function testUserDefinedStorageLocationBarcodeResolvesAndCanBeCleared(): void
+    {
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $location = $entityManager->find(StorageLocation::class, 4);
+        self::assertInstanceOf(StorageLocation::class, $location);
+
+        $location->setUserBarcode('storage-location-opaque-code');
+        $entityManager->flush();
+
+        self::assertEquals(
+            new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 4, BarcodeSourceType::USER_DEFINED),
+            $this->service->scanBarcodeContent('storage-location-opaque-code')
+        );
+
+        $location->setUserBarcode(null);
+        $entityManager->flush();
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->scanBarcodeContent('storage-location-opaque-code');
+    }
+
+    public function testUserDefinedStorageLocationBarcodePreservesWhitespace(): void
+    {
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $location = $entityManager->find(StorageLocation::class, 4);
+        self::assertInstanceOf(StorageLocation::class, $location);
+
+        $location->setUserBarcode(' barcode-with-whitespace ');
+        $entityManager->flush();
+
+        self::assertEquals(
+            new LocalBarcodeScanResult(LabelSupportedElement::STORELOCATION, 4, BarcodeSourceType::USER_DEFINED),
+            $this->service->scanBarcodeContent(' barcode-with-whitespace ')
+        );
+
+        $this->expectException(\InvalidArgumentException::class);
+        $this->service->scanBarcodeContent('barcode-with-whitespace');
+    }
+
+    public function testPartLotUserBarcodeKeepsPriorityOverStorageLocationBarcode(): void
+    {
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $location = $entityManager->find(StorageLocation::class, 4);
+        self::assertInstanceOf(StorageLocation::class, $location);
+
+        $location->setUserBarcode('lot2_vendor_barcode');
+        $entityManager->flush();
+
+        self::assertEquals(
+            new LocalBarcodeScanResult(LabelSupportedElement::PART_LOT, 2, BarcodeSourceType::USER_DEFINED),
+            $this->service->scanBarcodeContent('lot2_vendor_barcode')
+        );
     }
 }

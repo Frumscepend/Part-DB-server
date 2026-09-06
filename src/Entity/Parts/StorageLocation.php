@@ -65,6 +65,7 @@ use App\Entity\UserSystem\User;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -75,6 +76,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[ORM\Table('`storelocations`')]
 #[ORM\Index(columns: ['name'], name: 'location_idx_name')]
 #[ORM\Index(columns: ['parent_id', 'name'], name: 'location_idx_parent_name')]
+#[ORM\UniqueConstraint(name: 'storelocations_unique_user_barcode', columns: ['user_barcode'])]
+#[UniqueEntity(['user_barcode'], message: 'validator.storage_location.user_barcode_must_be_unique')]
 #[ApiResource(
     operations: [
         new Get(security: 'is_granted("read", object)'),
@@ -172,6 +175,14 @@ class StorageLocation extends AbstractPartsContainingDBElement
     #[ORM\JoinColumn(name: 'storage_type_id')]
     #[Groups(['location:read', 'location:write'])]
     protected ?MeasurementUnit $storage_type = null;
+
+    /**
+     * User-defined barcode used to identify this storage location.
+     */
+    #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
+    #[Groups(['location:read', 'location:write'])]
+    #[Assert\Length(max: 255)]
+    protected ?string $user_barcode = null;
 
     /** @var Collection<int, StorageLocationParameter>
      */
@@ -294,6 +305,18 @@ class StorageLocation extends AbstractPartsContainingDBElement
     public function setStorageType(?MeasurementUnit $storage_type): self
     {
         $this->storage_type = $storage_type;
+
+        return $this;
+    }
+
+    public function getUserBarcode(): ?string
+    {
+        return $this->user_barcode;
+    }
+
+    public function setUserBarcode(?string $user_barcode): self
+    {
+        $this->user_barcode = $user_barcode === '' ? null : $user_barcode;
 
         return $this;
     }
