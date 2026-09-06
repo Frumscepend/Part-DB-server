@@ -1,5 +1,6 @@
 {% block barcode_scanner_widget -%}
-    <div {{ stimulus_controller('elements/barcode_input_scanner') }}>
+    <div class="position-relative" data-autocomplete-panel-container
+            {{ stimulus_controller('elements/barcode_input_scanner') }}>
         <div class="input-group">
             {%- set attr = attr|merge({'data-elements--barcode-input-scanner-target': 'input'}) -%}
             {{- block('form_widget_simple') -}}

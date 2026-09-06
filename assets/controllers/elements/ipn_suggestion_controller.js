@@ -68,6 +68,7 @@ export default class extends Controller {
 
     configureAutocomplete() {
         const inputField = this.inputTarget;
+        const panelContainer = inputField.closest('[data-autocomplete-panel-container]') ?? inputField.parentNode;
         const commonPrefixes = this.suggestionsValue.commonPrefixes || [];
         const prefixesPartIncrement = this.suggestionsValue.prefixesPartIncrement || [];
         const commonHeader = this.commonSectionHeaderValue;
@@ -77,7 +78,7 @@ export default class extends Controller {
 
         // Check whether the panel should be created at the update
         if (this.isPanelInitialized) {
-            const existingPanel = inputField.parentNode.querySelector(".aa-Panel");
+            const existingPanel = panelContainer.querySelector(".aa-Panel");
             if (existingPanel) {
                 // Only remove the panel in the update phase
 
@@ -87,7 +88,7 @@ export default class extends Controller {
 
         // Create panel
         const panel = document.createElement("div");
-        panel.classList.add("aa-Panel");
+        panel.classList.add("aa-Panel", "w-100");
         panel.style.display = "none";
 
         // Create panel layout
@@ -151,7 +152,7 @@ export default class extends Controller {
         }
 
         panel.appendChild(panelLayout);
-        inputField.parentNode.appendChild(panel);
+        panelContainer.appendChild(panel);
 
         inputField.addEventListener("focus", () => {
             panel.style.display = "block";

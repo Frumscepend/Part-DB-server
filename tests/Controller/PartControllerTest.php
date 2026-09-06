@@ -99,7 +99,10 @@ final class PartControllerTest extends WebTestCase
         $this->assertResponseStatusCodeSame(Response::HTTP_OK);
         $this->assertSelectorExists('form[name="part_base"]');
         $this->assertSelectorExists(
-            '.input-group > #part_base_ipn + button[data-action~="elements--barcode-input-scanner#open"]'
+            '[data-autocomplete-panel-container] > .input-group > #part_base_ipn'
+        );
+        $this->assertSelectorExists(
+            '[data-autocomplete-panel-container] > .input-group > #part_base_ipn + button[data-action~="elements--barcode-input-scanner#open"]'
         );
         $this->assertSelectorExists('#part_base_ipn_scanner_reader');
     }
