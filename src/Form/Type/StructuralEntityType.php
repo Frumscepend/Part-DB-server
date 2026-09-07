@@ -44,6 +44,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class StructuralEntityType extends AbstractType
 {
+    private const SCANNED_NEW_ENTITY_PREFIX = '$%SCAN$';
+
     public function __construct(protected EntityManagerInterface $em, protected NodesListBuilder $builder, protected TranslatorInterface $translator, protected StructuralEntityChoiceHelper $choice_helper)
     {
     }
@@ -55,7 +57,24 @@ class StructuralEntityType extends AbstractType
             //In that case we add the new element to our choice_loader
 
             $data = $event->getData();
-            if (is_string($data) && str_starts_with($data, '$%$')) {
+            $context = null;
+            if (is_string($data) && str_starts_with($data, self::SCANNED_NEW_ENTITY_PREFIX)) {
+                $configurator = $event->getForm()->getConfig()->getOption('new_entity_configurator');
+                $payload = json_decode(rawurldecode(substr($data, strlen(self::SCANNED_NEW_ENTITY_PREFIX))), true);
+                if (!is_callable($configurator)
+                    || !is_array($payload)
+                    || !is_string($payload['path'] ?? null)
+                    || !is_string($payload['barcode'] ?? null)
+                    || trim($payload['path']) === ''
+                    || $payload['barcode'] === '') {
+                    return;
+                }
+
+                $data = $payload['path'];
+                $context = $payload['barcode'];
+                //The generated choice uses the regular new-entity value, so normalize the submitted value to match it.
+                $event->setData('$%$'.$data);
+            } elseif (is_string($data) && str_starts_with($data, '$%$')) {
                 //Extract the real name from the data
                 $data = substr($data, 3);
             } else {
@@ -66,7 +85,7 @@ class StructuralEntityType extends AbstractType
             $options = $form->getConfig()->getOptions();
             $choice_loader = $options['choice_loader'];
             if ($choice_loader instanceof StructuralEntityChoiceLoader) {
-                $choice_loader->setAdditionalElement($data);
+                $choice_loader->setAdditionalElement($data, $context);
                 $choice_loader->setForm($form);
             }
         });
@@ -83,6 +102,7 @@ class StructuralEntityType extends AbstractType
             'show_fullpath_in_subtext' => true, //When this is enabled, the full path will be shown in subtext
             'subentities_of' => null,   //Only show entities with the given parent class
             'disable_not_selectable' => false,  //Disable entries with not selectable property
+            'new_entity_configurator' => null,
             'choice_value' => fn(?AbstractNamedDBElement $element) => $this->choice_helper->generateChoiceValue($element), //Use the element id as option value and for comparing items
             'choice_loader' => fn(Options $options) => new StructuralEntityChoiceLoader($options, $this->builder, $this->em, $this->translator),
             'choice_label' => fn(Options $options) => fn($choice, $key, $value) => $this->choice_helper->generateChoiceLabel($choice),
@@ -107,6 +127,7 @@ class StructuralEntityType extends AbstractType
         //Options for DTO values
         $resolver->setDefault('dto_value', null);
         $resolver->setAllowedTypes('dto_value', ['null', 'string']);
+        $resolver->setAllowedTypes('new_entity_configurator', ['null', 'callable']);
         //If no help text is explicitly set, we use the dto value as help text and show it as html
         $resolver->setDefault('help', fn(Options $options) => $this->dtoText($options['dto_value']));
         $resolver->setDefault('help_html', fn(Options $options) => $options['dto_value'] !== null);

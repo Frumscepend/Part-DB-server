@@ -30,6 +30,8 @@ TomSelect.define('autoselect_typed', TomSelect_autoselect_typed)
 TomSelect.define('form_reset_handler', TomSelect_form_reset_handler)
 
 export default class extends Controller {
+    static scannedValuePrefix = "$%SCAN$";
+
     _tomSelect;
 
     _emptyMessage;
@@ -40,6 +42,7 @@ export default class extends Controller {
         this._emptyMessage = this.element.getAttribute("data-empty-message") ?? "";
 
         const allowAdd = this.element.getAttribute("data-allow-add") === "true";
+        this._allowAdd = allowAdd;
         const addHint = this.element.getAttribute("data-add-hint") ?? "";
 
         let dropdownParent = "body";
@@ -94,7 +97,7 @@ export default class extends Controller {
 
             //Add callbacks to update validity
             onInitialize: this.updateValidity.bind(this),
-            onChange: this.updateValidity.bind(this),
+            onChange: this.handleChange.bind(this),
 
             plugins: {
                 "autoselect_typed": {},
@@ -109,7 +112,11 @@ export default class extends Controller {
 
         this._tomSelect = new TomSelect(this.element, settings);
         this._onBarcodeScannerSetValue = (event) => this.setBarcodeScannerValue(event);
+        this._onBarcodeScannerSetQuery = (event) => this.setBarcodeScannerQuery(event);
+        this._onBarcodeScannerClearBarcode = () => this.clearBarcodeScannerBarcode();
         this.element.addEventListener("barcode-scanner:set-value", this._onBarcodeScannerSetValue);
+        this.element.addEventListener("barcode-scanner:set-query", this._onBarcodeScannerSetQuery);
+        this.element.addEventListener("barcode-scanner:clear-barcode", this._onBarcodeScannerClearBarcode);
 
         //Do not do a sync here as this breaks the initial rendering of the empty option
         //this._tomSelect.sync();
@@ -129,7 +136,26 @@ export default class extends Controller {
         event.detail.selected = true;
     }
 
+    setBarcodeScannerQuery(event) {
+        const value = String(event.detail?.value ?? "");
+
+        if (!this._allowAdd || value.trim() === "") {
+            event.preventDefault();
+
+            return;
+        }
+
+        const prefix = this._tomSelect.getValue() ? "-> " : "";
+        this._pendingScannedBarcode = value;
+        this._tomSelect.focus();
+        this._tomSelect.setTextboxValue(prefix + value);
+        this._tomSelect.refreshOptions(true);
+        this.updateBarcodeScannerState(value);
+    }
+
     createItem(input, callback) {
+        const scannedBarcode = this._pendingScannedBarcode ?? null;
+        this._pendingScannedBarcode = null;
 
         //If the input starts with "->", we prepend the current selected value, for easier extension of existing values
         if (input.startsWith("->")) {
@@ -148,10 +174,52 @@ export default class extends Controller {
 
         callback({
             //$%$ is a special value prefix, that is used to identify items, that are not yet in the DB
-            value: '$%$' + input,
+            value: scannedBarcode === null
+                ? '$%$' + input
+                : this.constructor.scannedValuePrefix + encodeURIComponent(JSON.stringify({
+                    path: input,
+                    barcode: scannedBarcode,
+                })),
             text: input,
             not_in_db_yet: true,
+            scanned_barcode: scannedBarcode,
         });
+    }
+
+    clearBarcodeScannerBarcode() {
+        this._pendingScannedBarcode = null;
+
+        const selectedValue = String(this._tomSelect.getValue());
+        const option = this._tomSelect.options[selectedValue];
+        if (option?.scanned_barcode) {
+            const manualValue = '$%$' + option.text;
+            this._tomSelect.updateOption(selectedValue, {
+                ...option,
+                value: manualValue,
+                scanned_barcode: null,
+                $option: null,
+            });
+            this._tomSelect.updateOriginalInput();
+        }
+
+        this.updateBarcodeScannerState(null);
+    }
+
+    handleChange() {
+        this.updateValidity();
+
+        const selectedValue = String(this._tomSelect.getValue());
+        const barcode = this._tomSelect.options[selectedValue]?.scanned_barcode ?? null;
+        if (barcode === null) {
+            this._pendingScannedBarcode = null;
+        }
+        this.updateBarcodeScannerState(barcode);
+    }
+
+    updateBarcodeScannerState(barcode) {
+        this.element.dispatchEvent(new CustomEvent("barcode-scanner:barcode-state", {
+            detail: {value: barcode},
+        }));
     }
 
     createFilter(input) {
@@ -273,6 +341,8 @@ export default class extends Controller {
     disconnect() {
         super.disconnect();
         this.element.removeEventListener("barcode-scanner:set-value", this._onBarcodeScannerSetValue);
+        this.element.removeEventListener("barcode-scanner:set-query", this._onBarcodeScannerSetQuery);
+        this.element.removeEventListener("barcode-scanner:clear-barcode", this._onBarcodeScannerClearBarcode);
         //Destroy the TomSelect instance
         this._tomSelect.destroy();
     }

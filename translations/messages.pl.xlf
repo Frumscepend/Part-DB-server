@@ -9613,5 +9613,6 @@ Należy pamiętać, że nie możesz udawać nieaktywnych użytkowników. Jeśli 
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Skanuj kod kreskowy</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Skieruj aparat na kod kreskowy. Jego zawartość zostanie automatycznie wpisana w polu.</target></segment></unit>
     <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>Nie znaleziono pasującej lokalizacji magazynowej.</target></segment></unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode"><segment state="translated"><source>barcode_input_scanner.remove_barcode</source><target>Usuń kod kreskowy</target></segment></unit>
   </file>
 </xliff>

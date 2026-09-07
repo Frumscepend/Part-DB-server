@@ -16,7 +16,7 @@ import {Html5Qrcode, Html5QrcodeScanner} from "@part-db/html5-qrcode";
 /* stimulusFetch: 'lazy' */
 
 export default class extends Controller {
-    static targets = ["error", "input", "modal", "reader", "warning"];
+    static targets = ["error", "input", "modal", "reader", "scannedBarcode", "scannedBarcodeContainer", "warning"];
     static values = {
         resolveUrl: String,
     };
@@ -30,20 +30,27 @@ export default class extends Controller {
         this._modal = new Modal(this.modalTarget);
         this._onShown = () => this._startScanner();
         this._onHidden = () => this._stopScanner();
+        this._onBarcodeState = (event) => this._showScannedBarcode(event.detail?.value);
 
         this.modalTarget.addEventListener("shown.bs.modal", this._onShown);
         this.modalTarget.addEventListener("hidden.bs.modal", this._onHidden);
+        this.inputTarget.addEventListener("barcode-scanner:barcode-state", this._onBarcodeState);
     }
 
     disconnect() {
         this.modalTarget.removeEventListener("shown.bs.modal", this._onShown);
         this.modalTarget.removeEventListener("hidden.bs.modal", this._onHidden);
+        this.inputTarget.removeEventListener("barcode-scanner:barcode-state", this._onBarcodeState);
         this._stopScanner();
         this._modal.dispose();
     }
 
     open() {
         this._modal.show();
+    }
+
+    clearScannedBarcode() {
+        this.inputTarget.dispatchEvent(new CustomEvent("barcode-scanner:clear-barcode"));
     }
 
     async _startScanner() {
@@ -122,6 +129,10 @@ export default class extends Controller {
                 signal: abortController.signal,
             });
 
+            if (response.status === 404 && this._offerNewSelectValue(decodedText)) {
+                return;
+            }
+
             if (!response.ok) {
                 throw new Error(`Barcode lookup failed with status ${response.status}`);
             }
@@ -148,6 +159,32 @@ export default class extends Controller {
                 this._resolving = false;
             }
         }
+    }
+
+    _offerNewSelectValue(decodedText) {
+        if (this.inputTarget.getAttribute("data-allow-add") !== "true") {
+            return false;
+        }
+
+        this.modalTarget.addEventListener("hidden.bs.modal", () => {
+            this.inputTarget.dispatchEvent(new CustomEvent("barcode-scanner:set-query", {
+                cancelable: true,
+                detail: {value: decodedText},
+            }));
+        }, {once: true});
+        this._modal.hide();
+
+        return true;
+    }
+
+    _showScannedBarcode(value) {
+        if (!this.hasScannedBarcodeTarget || !this.hasScannedBarcodeContainerTarget) {
+            return;
+        }
+
+        const barcode = String(value ?? "");
+        this.scannedBarcodeTarget.value = barcode;
+        this.scannedBarcodeContainerTarget.classList.toggle("d-none", barcode === "");
     }
 
     _stopScanner() {

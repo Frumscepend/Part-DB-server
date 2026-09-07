@@ -253,5 +253,6 @@
         <target>这不是有效的GTIN/EAN！</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>此条码已分配给其他存储位置。条码必须唯一！</target></segment></unit>
   </file>
 </xliff>

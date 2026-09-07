@@ -241,5 +241,6 @@
         <target>Neplatný kód. Zkontrolujte, zda je vaše ověřovací aplikace správně nastavena a zda je čas správně nastaven jak na serveru, tak na ověřovacím zařízení.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Tento čárový kód je již přiřazen jinému skladovému místu. Čárový kód musí být jedinečný!</target></segment></unit>
   </file>
 </xliff>

@@ -235,5 +235,6 @@
         <target>Неверный код. Проверьте, что приложение аутентификации настроено правильно и что на сервере и устройстве аутентификации установлено правильное время.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Этот штрихкод уже назначен другому месту хранения. Штрихкод должен быть уникальным!</target></segment></unit>
   </file>
 </xliff>

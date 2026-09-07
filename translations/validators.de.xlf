@@ -271,5 +271,6 @@
         <target>Wenn Sie einen Info-Anbieter angeben, müssen Sie auch eine Anbieter-ID angeben oder beides entfernen.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Dieser Barcode ist bereits einem anderen Lagerort zugewiesen. Der Barcode muss eindeutig sein!</target></segment></unit>
   </file>
 </xliff>

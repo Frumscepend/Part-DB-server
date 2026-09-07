@@ -10925,5 +10925,6 @@ Vezměte prosím na vědomí, že se nemůžete vydávat za uživatele se zakáz
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Skenování čárového kódu</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Namiřte fotoaparát na čárový kód. Jeho obsah se automaticky zkopíruje do pole.</target></segment></unit>
     <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>Nebylo nalezeno odpovídající skladové místo.</target></segment></unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode"><segment state="translated"><source>barcode_input_scanner.remove_barcode</source><target>Odebrat čárový kód</target></segment></unit>
   </file>
 </xliff>

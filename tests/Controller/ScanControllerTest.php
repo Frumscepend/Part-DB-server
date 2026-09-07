@@ -23,9 +23,11 @@ declare(strict_types=1);
 namespace App\Tests\Controller;
 
 use App\Entity\Parts\StorageLocation;
+use App\Form\Type\StorageLocationScannerType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Form\FormFactoryInterface;
 
 final class ScanControllerTest extends WebTestCase
 {
@@ -102,5 +104,73 @@ final class ScanControllerTest extends WebTestCase
         $this->client->request('GET', '/en/scan/storage-location?barcode=missing-location-code');
 
         self::assertResponseStatusCodeSame(404);
+    }
+
+    public function testScannedNewStorageLocationKeepsBarcode(): void
+    {
+        $formFactory = self::getContainer()->get(FormFactoryInterface::class);
+        $form = $formFactory->create(StorageLocationScannerType::class, null, ['allow_add' => true]);
+        $payload = rawurlencode(json_encode([
+            'path' => 'Scanned storage location',
+            'barcode' => 'new-storage-location-code',
+        ], JSON_THROW_ON_ERROR));
+
+        $form->submit('$%SCAN$'.$payload);
+
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        $location = $form->getData();
+        self::assertInstanceOf(StorageLocation::class, $location);
+        self::assertSame('Scanned storage location', $location->getName());
+        self::assertSame('new-storage-location-code', $location->getUserBarcode());
+
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $entityManager->flush();
+        $this->client->request('GET', '/en/scan/storage-location?barcode=new-storage-location-code');
+        self::assertResponseIsSuccessful();
+        self::assertSame($location->getID(), json_decode(
+            (string) $this->client->getResponse()->getContent(),
+            true,
+            flags: JSON_THROW_ON_ERROR
+        )['id']);
+    }
+
+    public function testManuallyEnteredNewStorageLocationDoesNotSetBarcode(): void
+    {
+        $formFactory = self::getContainer()->get(FormFactoryInterface::class);
+        $form = $formFactory->create(StorageLocationScannerType::class, null, ['allow_add' => true]);
+
+        $form->submit('$%$scan: Manually entered storage location');
+
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        $location = $form->getData();
+        self::assertInstanceOf(StorageLocation::class, $location);
+        self::assertSame('scan: Manually entered storage location', $location->getName());
+        self::assertNull($location->getUserBarcode());
+    }
+
+    public function testScannedNewStorageLocationCanBeCreatedBelowSelectedLocation(): void
+    {
+        $entityManager = self::getContainer()->get(EntityManagerInterface::class);
+        $parent = $entityManager->find(StorageLocation::class, 1);
+        self::assertInstanceOf(StorageLocation::class, $parent);
+
+        $formFactory = self::getContainer()->get(FormFactoryInterface::class);
+        $form = $formFactory->create(StorageLocationScannerType::class, null, ['allow_add' => true]);
+        $payload = rawurlencode(json_encode([
+            'path' => $parent->getFullPath('->').'->Scanned child location',
+            'barcode' => 'new-child-location-code',
+        ], JSON_THROW_ON_ERROR));
+
+        $form->submit('$%SCAN$'.$payload);
+
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid(), (string) $form->getErrors(true));
+        $location = $form->getData();
+        self::assertInstanceOf(StorageLocation::class, $location);
+        self::assertSame('Scanned child location', $location->getName());
+        self::assertSame($parent, $location->getParent());
+        self::assertSame('new-child-location-code', $location->getUserBarcode());
     }
 }

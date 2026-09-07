@@ -13751,5 +13751,6 @@ IP 주소당 분당 10회 요청</target>
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>바코드 스캔</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>카메라를 바코드에 맞추면 내용이 필드에 자동으로 입력됩니다.</target></segment></unit>
     <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>일치하는 보관 위치를 찾을 수 없습니다.</target></segment></unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode"><segment state="translated"><source>barcode_input_scanner.remove_barcode</source><target>바코드 제거</target></segment></unit>
   </file>
 </xliff>

@@ -12520,5 +12520,6 @@ Server di autenticazione API Buerklin:
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Scansiona codice a barre</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Inquadra il codice a barre con la fotocamera. Il contenuto verrà copiato automaticamente nel campo.</target></segment></unit>
     <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>Non è stata trovata una posizione di stoccaggio corrispondente.</target></segment></unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode"><segment state="translated"><source>barcode_input_scanner.remove_barcode</source><target>Rimuovi codice a barre</target></segment></unit>
   </file>
 </xliff>

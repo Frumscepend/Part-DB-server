@@ -253,5 +253,6 @@
         <target>Questo non è un valido GTIN / EAN!</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Questo codice a barre è già assegnato a un'altra posizione di stoccaggio. Il codice a barre deve essere univoco!</target></segment></unit>
   </file>
 </xliff>

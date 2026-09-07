@@ -121,6 +121,13 @@ final class PartControllerTest extends WebTestCase
             .'select[data-controller~="elements--structural-entity-select"]'
             .'[data-elements--barcode-input-scanner-target="input"]'
         );
+        $this->assertSelectorExists(
+            '[data-elements--barcode-input-scanner-target="scannedBarcodeContainer"].d-none '
+            .'input[readonly][data-elements--barcode-input-scanner-target="scannedBarcode"]'
+        );
+        $this->assertSelectorExists(
+            'button[data-action~="elements--barcode-input-scanner#clearScannedBarcode"]'
+        );
     }
 
     public function testEditPartWithBulkJob(): void

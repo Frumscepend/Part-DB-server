@@ -16,6 +16,12 @@ final class StorageLocationScannerType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefault('class', StorageLocation::class);
+        $resolver->setDefault(
+            'new_entity_configurator',
+            static function (StorageLocation $location, string $barcode): void {
+                $location->setUserBarcode($barcode);
+            }
+        );
     }
 
     public function getParent(): string

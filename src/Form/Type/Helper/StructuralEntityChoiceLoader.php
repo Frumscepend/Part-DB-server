@@ -41,6 +41,8 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 {
     private ?string $additional_element = null;
 
+    private mixed $additional_element_context = null;
+
     private ?AbstractNamedDBElement $starting_element = null;
 
     private ?FormInterface $form = null;
@@ -60,7 +62,12 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
 
         if ($this->additional_element) {
             $tmp = $this->createNewEntitiesFromValue($this->additional_element);
+            $configurator = $this->options['new_entity_configurator'];
+            if ($tmp !== [] && $this->additional_element_context !== null && is_callable($configurator)) {
+                $configurator($tmp[array_key_last($tmp)], $this->additional_element_context);
+            }
             $this->additional_element = null;
+            $this->additional_element_context = null;
         }
 
         return array_merge($tmp, $this->builder->typeToNodesList($this->options['class'], null));
@@ -120,9 +127,10 @@ class StructuralEntityChoiceLoader extends AbstractChoiceLoader
         return $results;
     }
 
-    public function setAdditionalElement(?string $element): void
+    public function setAdditionalElement(?string $element, mixed $context = null): void
     {
         $this->additional_element = $element;
+        $this->additional_element_context = $context;
     }
 
     public function getAdditionalElement(): ?string

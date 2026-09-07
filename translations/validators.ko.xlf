@@ -271,5 +271,6 @@
         <target>정보 제공자를 지정하려면 제공자 ID도 지정하거나, 둘 다 제거해야 합니다.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>이 바코드는 이미 다른 보관 위치에 할당되어 있습니다. 바코드는 고유해야 합니다!</target></segment></unit>
   </file>
 </xliff>

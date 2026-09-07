@@ -11479,5 +11479,6 @@
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Vonalkód beolvasása</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Irányítsa a kamerát a vonalkódra. A tartalma automatikusan bekerül a mezőbe.</target></segment></unit>
     <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>Nem található megfelelő tárolóhely.</target></segment></unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode"><segment state="translated"><source>barcode_input_scanner.remove_barcode</source><target>Vonalkód eltávolítása</target></segment></unit>
   </file>
 </xliff>

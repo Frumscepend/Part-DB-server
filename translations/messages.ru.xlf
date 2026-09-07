@@ -4785,6 +4785,12 @@
         <target>Подходящее место хранения не найдено.</target>
       </segment>
     </unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode">
+      <segment state="translated">
+        <source>barcode_input_scanner.remove_barcode</source>
+        <target>Удалить штрихкод</target>
+      </segment>
+    </unit>
     <unit id="ilC3c6u" name="supplier.edit.default_currency">
       <notes>
         <note priority="1">obsolete</note>

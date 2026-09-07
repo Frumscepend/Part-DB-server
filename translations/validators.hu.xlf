@@ -241,5 +241,6 @@
         <target>Érvénytelen kód. Ellenőrizd, hogy az autentikátor alkalmazásod megfelelően van beállítva és hogy mind a szerver, mind az autentikációs eszköz időzítése helyes.</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Ez a vonalkód már egy másik tárolóhelyhez van rendelve. A vonalkódnak egyedinek kell lennie!</target></segment></unit>
   </file>
 </xliff>

@@ -247,5 +247,6 @@
         <target>Duplikuj</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Ten kod kreskowy jest już przypisany do innej lokalizacji magazynowej. Kod kreskowy musi być unikatowy!</target></segment></unit>
   </file>
 </xliff>

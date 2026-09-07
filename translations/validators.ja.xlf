@@ -79,5 +79,6 @@
         <target>新しい部品を追加できません。保管場所は「1つの部品のみ」とマークされています。</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>このバーコードは既に別の保管場所に割り当てられています。バーコードは一意である必要があります。</target></segment></unit>
   </file>
 </xliff>

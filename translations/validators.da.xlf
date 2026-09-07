@@ -253,5 +253,6 @@
         <target>Dette er ikke en gyldig GTIN / EAN!</target>
       </segment>
     </unit>
+    <unit id="storageLocationUserBarcodeUnique" name="validator.storage_location.user_barcode_must_be_unique"><segment state="translated"><source>validator.storage_location.user_barcode_must_be_unique</source><target>Denne stregkode er allerede tildelt en anden lagerplacering. Stregkoden skal være unik!</target></segment></unit>
   </file>
 </xliff>

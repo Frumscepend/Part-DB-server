@@ -12968,5 +12968,6 @@ Buerklin API-godkendelsesserver: 10 anmodninger/minut pr. IP-adresse</target>
     <unit id="barcodeInputScannerTitle" name="barcode_input_scanner.title"><segment state="translated"><source>barcode_input_scanner.title</source><target>Scan stregkode</target></segment></unit>
     <unit id="barcodeInputScannerHelp" name="barcode_input_scanner.help"><segment state="translated"><source>barcode_input_scanner.help</source><target>Ret kameraet mod stregkoden. Indholdet kopieres automatisk til feltet.</target></segment></unit>
     <unit id="barcodeInputScannerNotFound" name="barcode_input_scanner.not_found"><segment state="translated"><source>barcode_input_scanner.not_found</source><target>Der blev ikke fundet en tilsvarende lagerplacering.</target></segment></unit>
+    <unit id="barcodeInputScannerRemoveBarcode" name="barcode_input_scanner.remove_barcode"><segment state="translated"><source>barcode_input_scanner.remove_barcode</source><target>Fjern stregkode</target></segment></unit>
   </file>
 </xliff>
